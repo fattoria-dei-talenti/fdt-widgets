@@ -22,7 +22,7 @@
   max-width: 640px;
   margin: 0 auto;
   color: var(--ias-inchiostro);
-  font-size: 16px;
+  font-size: 19px;
   line-height: 1.5;
   text-align: left;
   scroll-margin-top: 88px;        /* spazio per un eventuale header sticky del tema */
@@ -34,16 +34,22 @@
 #ias-widget button, #ias-widget input {
   font: inherit; color: inherit; margin: 0; letter-spacing: normal; text-transform: none;
   text-shadow: none; text-decoration: none; min-height: 0; width: auto; max-width: 100%;
+  /* Hello Elementor (reset.css) mette button{white-space:nowrap;user-select:none}: il testo lungo usciva dal riquadro */
+  white-space: normal; overflow-wrap: break-word; -webkit-user-select: auto; user-select: auto;
   -webkit-appearance: none; appearance: none; -webkit-tap-highlight-color: transparent;
 }
 #ias-widget button { background: none; border: 0; border-radius: 0; box-shadow: none; padding: 0; cursor: pointer; line-height: 1.3; }
 #ias-widget p, #ias-widget h3 { margin: 0; padding: 0; }
+/* Hello Elementor: label{display:inline-block;line-height:1} schiaccia le etichette su due righe */
+#ias-widget label { line-height: 1.35; vertical-align: baseline; }
 #ias-widget a { color: var(--ias-verde); text-decoration: underline; text-underline-offset: 2px; }
 #ias-widget a:hover { color: var(--ias-verde-scuro); }
 
 /* Focus visibile ovunque: doppio anello bianco + verde, leggibile su fondo chiaro e su verde */
 #ias-widget :focus { outline: none; }
 #ias-widget :focus-visible { outline: none; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ias-verde); }
+/* tabindex=-1 = fuoco spostato dallo script (annuncio agli screen reader), non un controllo: nessun anello */
+#ias-widget [tabindex="-1"]:focus, #ias-widget [tabindex="-1"]:focus-visible { outline: none; box-shadow: none; }
 #ias-widget .ias-cta:focus-visible { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ias-verde), 0 4px 0 6px var(--ias-giallo); }
 
 /* Superficie unica del widget */
@@ -56,8 +62,8 @@
 }
 @container (min-width: 520px) { #ias-widget .ias-panel { padding: 32px 32px 36px; } }
 
-#ias-widget .ias-title { font-size: 22px; line-height: 1.25; font-weight: 700; color: var(--ias-verde); text-wrap: balance; }
-#ias-widget .ias-sub { margin-top: 6px; color: var(--ias-tenue); font-size: 15px; }
+#ias-widget .ias-title { font-size: 25px; line-height: 1.25; font-weight: 700; color: var(--ias-verde); text-wrap: balance; }
+#ias-widget .ias-sub { margin-top: 8px; color: var(--ias-tenue); font-size: 18px; }
 
 /* ---------- Passo 1: dati ---------- */
 #ias-widget .ias-campi { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 22px; }
@@ -65,11 +71,11 @@
   #ias-widget .ias-campi { grid-template-columns: 1fr 1fr; gap: 20px 16px; }
   #ias-widget .ias-campo--pieno { grid-column: 1 / -1; }
 }
-#ias-widget .ias-campo label { display: block; font-size: 15px; font-weight: 600; margin-bottom: 6px; color: var(--ias-inchiostro); }
-#ias-widget .ias-aiuto { display: block; font-size: 14px; color: var(--ias-tenue); margin: -2px 0 8px; }
+#ias-widget .ias-campo label { display: block; font-size: 18px; font-weight: 600; margin-bottom: 6px; color: var(--ias-inchiostro); }
+#ias-widget .ias-aiuto { display: block; font-size: 17px; color: var(--ias-tenue); margin: -2px 0 8px; }
 #ias-widget .ias-campo input {
-  display: block; width: 100%; height: 48px; padding: 0 14px;
-  font-size: 16px;                 /* >= 16px: iOS non fa zoom al focus */
+  display: block; width: 100%; height: 54px; padding: 0 14px;
+  font-size: 19px;                 /* >= 16px: iOS non fa zoom al focus */
   background: #fff; border: 1.5px solid var(--ias-bordo-campo); border-radius: 10px;
   transition: border-color 150ms, box-shadow 150ms;
 }
@@ -80,17 +86,17 @@
 #ias-widget input[type="number"]::-webkit-inner-spin-button,
 #ias-widget input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 #ias-widget input[type="number"] { -moz-appearance: textfield; }
-#ias-widget .ias-errore-campo { display: flex; gap: 6px; align-items: flex-start; margin-top: 6px; font-size: 14px; color: var(--ias-errore); font-weight: 600; }
+#ias-widget .ias-errore-campo { display: flex; gap: 6px; align-items: flex-start; margin-top: 6px; font-size: 17px; color: var(--ias-errore); font-weight: 600; }
 #ias-widget .ias-errore-campo:empty { display: none; }
-#ias-widget .ias-errore-campo::before { content: "!"; flex: none; display: inline-grid; place-items: center; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; background: var(--ias-errore); color: #fff; font-size: 12px; line-height: 1; }
+#ias-widget .ias-errore-campo::before { content: "!"; flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: var(--ias-errore); color: #fff; font-size: 13px; line-height: 1; }
 
 /* Consenso privacy: tutta la riga è area di tocco */
 /* Trasparenza IA (AI Act): dice come nasce il report, prima del consenso */
-#ias-widget .ias-nota-ia { margin: 20px 0 0; font-size: 14px; line-height: 1.5; color: var(--ias-tenue); }
+#ias-widget .ias-nota-ia { margin: 20px 0 0; font-size: 17px; line-height: 1.5; color: var(--ias-tenue); }
 #ias-widget .ias-consenso { margin-top: 20px; }
-#ias-widget .ias-consenso label { display: flex; gap: 12px; align-items: center; min-height: 48px; padding: 8px 0; font-size: 15px; cursor: pointer; }
+#ias-widget .ias-consenso label { display: flex; gap: 12px; align-items: center; min-height: 48px; padding: 8px 0; font-size: 18px; cursor: pointer; }
 #ias-widget .ias-consenso input[type="checkbox"] {
-  flex: none; width: 24px; height: 24px; border: 1.5px solid var(--ias-bordo-campo); border-radius: 6px; background: #fff;
+  flex: none; width: 26px; height: 26px; border: 1.5px solid var(--ias-bordo-campo); border-radius: 6px; background: #fff;
   display: inline-grid; place-items: center; cursor: pointer; transition: background-color 150ms, border-color 150ms;
 }
 #ias-widget .ias-consenso input[type="checkbox"]::after {
@@ -104,13 +110,13 @@
 /* Bottone principale, variante C1 del brand: verde, base gialla che "affonda" al tocco */
 #ias-widget .ias-cta {
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  width: 100%; min-height: 56px; margin: 24px 0 4px; padding: 14px 20px;
+  width: 100%; min-height: 60px; margin: 24px 0 4px; padding: 14px 20px;
   background: var(--ias-verde); color: #fff; border-radius: var(--ias-raggio);
-  font-size: 17px; font-weight: 700; line-height: 1.2;
+  font-size: 20px; font-weight: 700; line-height: 1.2;
   box-shadow: 0 4px 0 var(--ias-giallo), 0 8px 18px rgba(8, 61, 44, .18);
   transition: transform 120ms var(--ias-esce), box-shadow 120ms var(--ias-esce), background-color 150ms;
 }
-#ias-widget .ias-cta svg { width: 20px; height: 20px; flex: none; transition: transform 200ms var(--ias-esce); }
+#ias-widget .ias-cta svg { width: 22px; height: 22px; flex: none; transition: transform 200ms var(--ias-esce); }
 #ias-widget .ias-cta:active { transform: translateY(4px); background: var(--ias-verde-scuro); box-shadow: 0 0 0 var(--ias-giallo), 0 2px 6px rgba(8, 61, 44, .18); }
 #ias-widget .ias-cta[disabled] { opacity: .65; cursor: wait; }
 @media (hover: hover) {
@@ -119,30 +125,31 @@
 }
 
 /* ---------- Passo 2: domande ---------- */
-#ias-widget .ias-testa { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--ias-tenue); }
+#ias-widget .ias-testa { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 17px; color: var(--ias-tenue); }
 #ias-widget .ias-contatore { font-weight: 700; color: var(--ias-verde); font-variant-numeric: tabular-nums; }
 #ias-widget .ias-contatore { white-space: nowrap; }
 #ias-widget .ias-nome-test { font-weight: 600; text-align: right; }
 /* Sotto i 420 px il nome del test va a capo e sporca la testata: si tiene solo il contatore */
 @container (max-width: 419px) { #ias-widget .ias-nome-test { display: none; } }
-#ias-widget .ias-barra { margin-top: 10px; height: 6px; border-radius: 3px; background: var(--ias-linea); overflow: hidden; }
-#ias-widget .ias-barra-piena { display: block; height: 100%; width: 100%; background: var(--ias-verde); border-radius: 3px; transform-origin: left center; transform: scaleX(0); transition: transform 300ms var(--ias-esce); }
+#ias-widget .ias-barra { margin-top: 10px; height: 8px; border-radius: 4px; background: var(--ias-linea); overflow: hidden; }
+#ias-widget .ias-barra-piena { display: block; height: 100%; width: 100%; background: var(--ias-verde); border-radius: 4px; transform-origin: left center; transform: scaleX(0); transition: transform 300ms var(--ias-esce); }
 
 #ias-widget .ias-question { margin-top: 22px; }
-#ias-widget .ias-question-text { font-size: 19px; line-height: 1.4; font-weight: 600; color: var(--ias-inchiostro); text-wrap: pretty; max-width: 60ch; }
-#ias-widget .ias-question-text:focus-visible { box-shadow: none; outline: 2px solid var(--ias-verde); outline-offset: 4px; border-radius: 4px; }
+#ias-widget .ias-question-text { font-size: 22px; line-height: 1.4; font-weight: 600; color: var(--ias-inchiostro); text-wrap: pretty; max-width: 60ch; }
 #ias-widget .ias-answer-options { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
 #ias-widget .ias-answer-btn {
-  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 56px; padding: 12px 14px;
-  text-align: left; font-size: 16px; line-height: 1.35; color: var(--ias-inchiostro);
+  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 60px; padding: 14px 16px;
+  text-align: left; font-size: 19px; line-height: 1.35; color: var(--ias-inchiostro);
   background: #fff; border: 1.5px solid var(--ias-bordo-campo); border-radius: var(--ias-raggio);
   transition: background-color 150ms, border-color 150ms, color 150ms, transform 120ms var(--ias-esce);
 }
 #ias-widget .ias-tasto {
-  flex: none; display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
-  background: var(--ias-fondo-2); color: var(--ias-verde); font-size: 14px; font-weight: 700;
+  flex: none; display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--ias-fondo-2); color: var(--ias-verde); font-size: 16px; font-weight: 700;
   transition: background-color 150ms, color 150ms;
 }
+/* Il testo della risposta si restringe e va a capo invece di spingere fuori il riquadro */
+#ias-widget .ias-answer-btn > span:last-child { flex: 1 1 auto; min-width: 0; }
 #ias-widget .ias-answer-btn:active { transform: scale(.985); }
 #ias-widget .ias-answer-btn.selected { background: var(--ias-verde); border-color: var(--ias-verde); color: #fff; }
 #ias-widget .ias-answer-btn.selected .ias-tasto { background: var(--ias-giallo); color: var(--ias-verde-scuro); }
@@ -155,20 +162,20 @@
 #ias-widget .ias-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--ias-linea); }
 #ias-widget .ias-nav-btn {
   display: inline-flex; align-items: center; gap: 6px; min-height: 48px; padding: 0 14px; margin: 0 -14px;
-  font-size: 16px; font-weight: 600; color: var(--ias-verde); border-radius: 10px;
+  font-size: 19px; font-weight: 600; color: var(--ias-verde); border-radius: 10px;
 }
-#ias-widget .ias-nav-btn svg { width: 18px; height: 18px; flex: none; }
+#ias-widget .ias-nav-btn svg { width: 20px; height: 20px; flex: none; }
 #ias-widget .ias-nav-btn:active { background: var(--ias-fondo-2); }
 @media (hover: hover) { #ias-widget .ias-nav-btn:hover { background: var(--ias-fondo-2); color: var(--ias-verde-scuro); } }
-#ias-widget .ias-suggerimento { font-size: 13px; color: var(--ias-tenue); text-align: center; flex: 1; }
+#ias-widget .ias-suggerimento { font-size: 16px; color: var(--ias-tenue); text-align: center; flex: 1; }
 @media (hover: none), (pointer: coarse) { #ias-widget .ias-suggerimento { display: none; } }
 
 /* Ultimo passo */
 #ias-widget .ias-finale { margin-top: 22px; }
-#ias-widget .ias-riepilogo { display: flex; gap: 12px; align-items: center; padding: 14px; border-radius: var(--ias-raggio); background: var(--ias-ok-fondo); border: 1px solid var(--ias-ok-bordo); font-size: 15px; }
+#ias-widget .ias-riepilogo { display: flex; gap: 12px; align-items: center; padding: 14px; border-radius: var(--ias-raggio); background: var(--ias-ok-fondo); border: 1px solid var(--ias-ok-bordo); font-size: 18px; }
 #ias-widget .ias-riepilogo svg { flex: none; width: 28px; height: 28px; }
 #ias-widget #ias-turnstile { display: flex; justify-content: center; min-height: 65px; margin-top: 18px; }
-#ias-widget .ias-ts-stato { margin-top: 8px; font-size: 14px; color: var(--ias-tenue); text-align: center; }
+#ias-widget .ias-ts-stato { margin-top: 8px; font-size: 17px; color: var(--ias-tenue); text-align: center; }
 
 /* Ingresso della domanda: parte da visibile se l'animazione non gira (nessun contenuto "bloccato") */
 #ias-widget .ias-entra-avanti { animation: ias-da-destra 240ms var(--ias-esce); }
@@ -180,13 +187,13 @@
 #ias-widget .ias-test-error {
   display: flex; gap: 10px; align-items: flex-start; margin: 0 0 14px; padding: 14px 16px;
   background: var(--ias-errore-fondo); border: 1px solid var(--ias-errore-bordo); border-radius: var(--ias-raggio);
-  color: #7a1c17; font-size: 15px; line-height: 1.45;
+  color: #7a1c17; font-size: 18px; line-height: 1.45;
 }
-#ias-widget .ias-test-error::before { content: "!"; flex: none; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--ias-errore); color: #fff; font-weight: 700; font-size: 14px; line-height: 1; margin-top: 1px; }
+#ias-widget .ias-test-error::before { content: "!"; flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ias-errore); color: #fff; font-weight: 700; font-size: 15px; line-height: 1; margin-top: 2px; }
 #ias-widget .ias-test-error a { color: #7a1c17; }
 #ias-widget .ias-final-message-container { padding: 28px 18px; text-align: center; background: #fff; border: 1px solid var(--ias-linea); border-radius: 16px; }
 #ias-widget .ias-final-message-container .ias-icona-ok { display: block; width: 56px; height: 56px; margin: 0 auto 16px; }
-#ias-widget .ias-final-message-text { font-size: 18px; line-height: 1.55; font-weight: 500; color: var(--ias-inchiostro); text-wrap: pretty; max-width: 46ch; margin: 0 auto; }
+#ias-widget .ias-final-message-text { font-size: 21px; line-height: 1.55; font-weight: 500; color: var(--ias-inchiostro); text-wrap: pretty; max-width: 46ch; margin: 0 auto; }
 #ias-widget .ias-final-message-text strong { color: var(--ias-verde); }
 
 /* Honeypot: invisibile alle persone, compilato dai bot */
@@ -199,9 +206,9 @@
   background: rgba(8, 61, 44, .55);
 }
 #ias-widget .ias-attesa { width: 100%; max-width: 360px; padding: 28px 24px; background: #fff; border-radius: 16px; text-align: center; box-shadow: 0 20px 50px rgba(0, 0, 0, .25); }
-#ias-widget .ias-attesa-titolo { font-size: 18px; font-weight: 700; color: var(--ias-verde); line-height: 1.35; }
-#ias-widget .ias-attesa-nota { margin-top: 8px; font-size: 15px; color: var(--ias-tenue); }
-#ias-widget .ias-indeterminata { position: relative; height: 6px; margin: 0 0 20px; border-radius: 3px; background: var(--ias-linea); overflow: hidden; }
+#ias-widget .ias-attesa-titolo { font-size: 21px; font-weight: 700; color: var(--ias-verde); line-height: 1.35; }
+#ias-widget .ias-attesa-nota { margin-top: 8px; font-size: 18px; color: var(--ias-tenue); }
+#ias-widget .ias-indeterminata { position: relative; height: 8px; margin: 0 0 20px; border-radius: 4px; background: var(--ias-linea); overflow: hidden; }
 #ias-widget .ias-indeterminata::after { content: ""; position: absolute; inset: 0; width: 40%; border-radius: 3px; background: var(--ias-verde); animation: ias-scorre 1.3s var(--ias-esce) infinite; }
 @keyframes ias-scorre { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
 

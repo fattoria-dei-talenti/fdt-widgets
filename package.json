@@ -1,6 +1,6 @@
 {
   "name": "fdt-widgets",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Widget dei report di Fattoria dei Talenti (IAS, stile manageriale) serviti via jsDelivr",
   "license": "UNLICENSED",

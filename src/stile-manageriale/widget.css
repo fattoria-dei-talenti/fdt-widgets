@@ -17,7 +17,7 @@
   max-width: 640px;
   margin: 0 auto;
   color: var(--mt-inchiostro);
-  font-size: 16px;
+  font-size: 19px;
   line-height: 1.5;
   text-align: left;
   scroll-margin-top: 88px;
@@ -27,14 +27,20 @@
 #manager-test button, #manager-test input {
   font: inherit; color: inherit; margin: 0; letter-spacing: normal; text-transform: none;
   text-shadow: none; text-decoration: none; min-height: 0; width: auto; max-width: 100%;
+  /* Hello Elementor (reset.css) mette button{white-space:nowrap;user-select:none}: il testo lungo usciva dal riquadro */
+  white-space: normal; overflow-wrap: break-word; -webkit-user-select: auto; user-select: auto;
   -webkit-appearance: none; appearance: none; -webkit-tap-highlight-color: transparent;
 }
 #manager-test button { background: none; border: 0; border-radius: 0; box-shadow: none; padding: 0; cursor: pointer; line-height: 1.3; }
 #manager-test p, #manager-test h3, #manager-test ul { margin: 0; padding: 0; }
+/* Hello Elementor: label{display:inline-block;line-height:1} schiaccia le etichette su due righe */
+#manager-test label { line-height: 1.35; vertical-align: baseline; }
 #manager-test a { color: var(--mt-verde); text-decoration: underline; text-underline-offset: 2px; }
 #manager-test a:hover { color: var(--mt-verde-scuro); }
 #manager-test :focus { outline: none; }
 #manager-test :focus-visible { outline: none; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--mt-verde); }
+/* tabindex=-1 = fuoco spostato dallo script (annuncio agli screen reader), non un controllo: nessun anello */
+#manager-test [tabindex="-1"]:focus, #manager-test [tabindex="-1"]:focus-visible { outline: none; box-shadow: none; }
 #manager-test .mt-cta:focus-visible { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--mt-verde), 0 4px 0 6px var(--mt-giallo); }
 
 #manager-test .mt-panel {
@@ -42,8 +48,8 @@
   box-shadow: 0 1px 2px rgba(8, 61, 44, .06), 0 8px 24px rgba(8, 61, 44, .06);
 }
 @container (min-width: 520px) { #manager-test .mt-panel { padding: 32px 32px 36px; } }
-#manager-test .mt-title { font-size: 22px; line-height: 1.25; font-weight: 700; color: var(--mt-verde); text-wrap: balance; }
-#manager-test .form-description { margin-top: 6px; color: var(--mt-tenue); font-size: 15px; }
+#manager-test .mt-title { font-size: 25px; line-height: 1.25; font-weight: 700; color: var(--mt-verde); text-wrap: balance; }
+#manager-test .form-description { margin-top: 8px; color: var(--mt-tenue); font-size: 18px; }
 
 /* ---------- Form anagrafico ---------- */
 #manager-test .form-grid { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 22px; }
@@ -51,9 +57,9 @@
   #manager-test .form-grid { grid-template-columns: 1fr 1fr; gap: 20px 16px; }
   #manager-test .full-width { grid-column: 1 / -1; }
 }
-#manager-test .form-group label { display: block; font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+#manager-test .form-group label { display: block; font-size: 18px; font-weight: 600; margin-bottom: 6px; }
 #manager-test .form-group input {
-  display: block; width: 100%; height: 48px; padding: 0 14px; font-size: 16px;
+  display: block; width: 100%; height: 54px; padding: 0 14px; font-size: 19px;
   background: #fff; border: 1.5px solid var(--mt-bordo-campo); border-radius: 10px;
   transition: border-color 150ms, box-shadow 150ms;
 }
@@ -61,64 +67,65 @@
 #manager-test .form-group input:hover { border-color: var(--mt-inchiostro); }
 #manager-test .form-group input:focus { border-color: var(--mt-verde); box-shadow: 0 0 0 3px rgba(12, 85, 62, .22); }
 #manager-test .form-group input[aria-invalid="true"] { border-color: var(--mt-errore); }
-#manager-test .hint { display: block; margin-top: 6px; font-size: 14px; color: var(--mt-tenue); }
-#manager-test .mt-errore-campo { display: flex; gap: 6px; align-items: flex-start; margin-top: 6px; font-size: 14px; font-weight: 600; color: var(--mt-errore); }
+#manager-test .hint { display: block; margin-top: 6px; font-size: 17px; color: var(--mt-tenue); }
+#manager-test .mt-errore-campo { display: flex; gap: 6px; align-items: flex-start; margin-top: 6px; font-size: 17px; font-weight: 600; color: var(--mt-errore); }
 #manager-test .mt-errore-campo:empty { display: none; }
-#manager-test .mt-errore-campo::before { content: "!"; flex: none; display: inline-grid; place-items: center; width: 18px; height: 18px; margin-top: 1px; border-radius: 50%; background: var(--mt-errore); color: #fff; font-size: 12px; line-height: 1; }
+#manager-test .mt-errore-campo::before { content: "!"; flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: var(--mt-errore); color: #fff; font-size: 13px; line-height: 1; }
 
 /* Indicazioni: prima del bottone, così si leggono prima di iniziare */
 #manager-test .mt-indicazioni { margin-top: 22px; padding: 16px; border-radius: var(--mt-raggio); background: var(--mt-fondo-2); }
-#manager-test .mt-indicazioni-titolo { font-size: 15px; font-weight: 700; color: var(--mt-verde); }
+#manager-test .mt-indicazioni-titolo { font-size: 18px; font-weight: 700; color: var(--mt-verde); }
 #manager-test .mt-indicazioni ul { list-style: none; margin-top: 8px; display: grid; gap: 6px; }
-#manager-test .mt-indicazioni li { position: relative; padding-left: 18px; font-size: 15px; line-height: 1.45; }
+#manager-test .mt-indicazioni li { position: relative; padding-left: 18px; font-size: 18px; line-height: 1.45; }
 #manager-test .mt-indicazioni li::before { content: ""; position: absolute; left: 2px; top: .6em; width: 7px; height: 7px; border-radius: 50%; background: var(--mt-verde); }
 
 #manager-test .mt-errore {
   display: flex; gap: 10px; align-items: flex-start; margin: 18px 0 0; padding: 14px 16px;
   background: var(--mt-errore-fondo); border: 1px solid var(--mt-errore-bordo); border-radius: var(--mt-raggio);
-  color: #7a1c17; font-size: 15px;
+  color: #7a1c17; font-size: 18px;
 }
-#manager-test .mt-errore::before { content: "!"; flex: none; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--mt-errore); color: #fff; font-weight: 700; font-size: 14px; line-height: 1; margin-top: 1px; }
+#manager-test .mt-errore::before { content: "!"; flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--mt-errore); color: #fff; font-weight: 700; font-size: 15px; line-height: 1; margin-top: 2px; }
 
 /* Bottone principale, variante C1 del brand */
 #manager-test .mt-cta {
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  width: 100%; min-height: 56px; margin: 22px 0 4px; padding: 14px 20px;
+  width: 100%; min-height: 60px; margin: 22px 0 4px; padding: 14px 20px;
   background: var(--mt-verde); color: #fff; border-radius: var(--mt-raggio);
-  font-size: 17px; font-weight: 700; line-height: 1.2;
+  font-size: 20px; font-weight: 700; line-height: 1.2;
   box-shadow: 0 4px 0 var(--mt-giallo), 0 8px 18px rgba(8, 61, 44, .18);
   transition: transform 120ms var(--mt-esce), box-shadow 120ms var(--mt-esce), background-color 150ms;
 }
-#manager-test .mt-cta svg { width: 20px; height: 20px; flex: none; transition: transform 200ms var(--mt-esce); }
+#manager-test .mt-cta svg { width: 22px; height: 22px; flex: none; transition: transform 200ms var(--mt-esce); }
 #manager-test .mt-cta:active { transform: translateY(4px); background: var(--mt-verde-scuro); box-shadow: 0 0 0 var(--mt-giallo), 0 2px 6px rgba(8, 61, 44, .18); }
 @media (hover: hover) {
   #manager-test .mt-cta:hover { background: var(--mt-verde-scuro); color: #fff; }
   #manager-test .mt-cta:hover svg { transform: translateX(5px); }
 }
-#manager-test .privacy-note { margin-top: 12px; font-size: 14px; color: var(--mt-tenue); text-align: center; }
+#manager-test .privacy-note { margin-top: 12px; font-size: 17px; line-height: 1.5; color: var(--mt-tenue); text-align: center; }
 
 /* ---------- Questionario ---------- */
-#manager-test .question-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--mt-tenue); }
+#manager-test .question-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 17px; color: var(--mt-tenue); }
 #manager-test .question-counter { font-weight: 700; color: var(--mt-verde); font-variant-numeric: tabular-nums; white-space: nowrap; }
 #manager-test .mt-nome-test { text-align: right; }
 @container (max-width: 359px) { #manager-test .mt-nome-test { display: none; } }
-#manager-test .progress-container { margin-top: 10px; height: 6px; border-radius: 3px; background: var(--mt-linea); overflow: hidden; }
-#manager-test .progress-bar { display: block; height: 100%; width: 100%; background: var(--mt-verde); border-radius: 3px; transform-origin: left center; transform: scaleX(0); transition: transform 300ms var(--mt-esce); }
+#manager-test .progress-container { margin-top: 10px; height: 8px; border-radius: 4px; background: var(--mt-linea); overflow: hidden; }
+#manager-test .progress-bar { display: block; height: 100%; width: 100%; background: var(--mt-verde); border-radius: 4px; transform-origin: left center; transform: scaleX(0); transition: transform 300ms var(--mt-esce); }
 #manager-test .mt-domanda { margin-top: 22px; }
-#manager-test .question-text { font-size: 19px; line-height: 1.4; font-weight: 600; text-wrap: pretty; max-width: 60ch; }
-#manager-test .question-text:focus-visible { box-shadow: none; outline: 2px solid var(--mt-verde); outline-offset: 4px; border-radius: 4px; }
+#manager-test .question-text { font-size: 22px; line-height: 1.4; font-weight: 600; text-wrap: pretty; max-width: 60ch; }
 #manager-test .answers-container { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
 #manager-test .answer-option {
-  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 56px; padding: 12px 14px;
-  text-align: left; font-size: 16px; line-height: 1.4; color: var(--mt-inchiostro);
+  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 60px; padding: 14px 16px;
+  text-align: left; font-size: 19px; line-height: 1.4; color: var(--mt-inchiostro);
   background: #fff; border: 1.5px solid var(--mt-bordo-campo); border-radius: var(--mt-raggio);
   transition: background-color 150ms, border-color 150ms, color 150ms, transform 120ms var(--mt-esce);
 }
 #manager-test .mt-tasto {
-  flex: none; display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
-  background: var(--mt-fondo-2); color: var(--mt-verde); font-size: 14px; font-weight: 700;
+  flex: none; display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--mt-fondo-2); color: var(--mt-verde); font-size: 16px; font-weight: 700;
   transition: background-color 150ms, color 150ms;
 }
+/* Il testo dell'opzione si restringe e va a capo invece di spingere fuori il riquadro */
+#manager-test .answer-text { flex: 1 1 auto; min-width: 0; }
 #manager-test .answer-option:active { transform: scale(.985); }
 #manager-test .answer-option.selected { background: var(--mt-verde); border-color: var(--mt-verde); color: #fff; }
 #manager-test .answer-option.selected .mt-tasto { background: var(--mt-giallo); color: var(--mt-verde-scuro); }
@@ -127,11 +134,11 @@
   #manager-test .answer-option.selected:hover { background: var(--mt-verde-scuro); color: #fff; }
 }
 #manager-test .mt-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--mt-linea); }
-#manager-test .mt-nav-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 48px; padding: 0 14px; margin: 0 -14px; font-size: 16px; font-weight: 600; color: var(--mt-verde); border-radius: 10px; }
-#manager-test .mt-nav-btn svg { width: 18px; height: 18px; flex: none; }
+#manager-test .mt-nav-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 48px; padding: 0 14px; margin: 0 -14px; font-size: 19px; font-weight: 600; color: var(--mt-verde); border-radius: 10px; }
+#manager-test .mt-nav-btn svg { width: 20px; height: 20px; flex: none; }
 #manager-test .mt-nav-btn:active { background: var(--mt-fondo-2); }
 @media (hover: hover) { #manager-test .mt-nav-btn:hover { background: var(--mt-fondo-2); color: var(--mt-verde-scuro); } }
-#manager-test .mt-suggerimento { font-size: 13px; color: var(--mt-tenue); text-align: center; flex: 1; }
+#manager-test .mt-suggerimento { font-size: 16px; color: var(--mt-tenue); text-align: center; flex: 1; }
 @media (hover: none), (pointer: coarse) { #manager-test .mt-suggerimento { display: none; } }
 #manager-test .mt-entra-avanti { animation: mt-da-destra 240ms var(--mt-esce); }
 #manager-test .mt-entra-indietro { animation: mt-da-sinistra 240ms var(--mt-esce); }
@@ -140,10 +147,10 @@
 
 /* ---------- Schermate di attesa / esito ---------- */
 #manager-test .completion-screen { padding: 32px 18px; text-align: center; }
-#manager-test .completion-screen h3 { font-size: 22px; line-height: 1.3; font-weight: 700; color: var(--mt-verde); text-wrap: balance; }
-#manager-test .completion-screen p { margin: 12px auto 0; font-size: 17px; line-height: 1.55; max-width: 44ch; text-wrap: pretty; }
+#manager-test .completion-screen h3 { font-size: 25px; line-height: 1.3; font-weight: 700; color: var(--mt-verde); text-wrap: balance; }
+#manager-test .completion-screen p { margin: 12px auto 0; font-size: 20px; line-height: 1.55; max-width: 44ch; text-wrap: pretty; }
 #manager-test .completion-screen .mt-cta { max-width: 360px; margin-left: auto; margin-right: auto; }
-#manager-test .spinner { position: relative; height: 6px; max-width: 280px; margin: 22px auto 4px; border-radius: 3px; background: var(--mt-linea); overflow: hidden; }
+#manager-test .spinner { position: relative; height: 8px; max-width: 280px; margin: 22px auto 4px; border-radius: 4px; background: var(--mt-linea); overflow: hidden; }
 #manager-test .spinner::after { content: ""; position: absolute; inset: 0; width: 40%; border-radius: 3px; background: var(--mt-verde); animation: mt-scorre 1.3s var(--mt-esce) infinite; }
 @keyframes mt-scorre { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
 
