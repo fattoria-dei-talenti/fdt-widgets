@@ -436,11 +436,14 @@
     };
     // Attribuzione: si inviano solo le chiavi presenti (mai stringhe vuote).
     ["utm_source", "utm_medium", "utm_campaign", "utm_content", "fdt_cid"].forEach(function (k) { if (attr[k]) dati[k] = attr[k]; });
-    // Solo il dominio di provenienza, e solo se esterno al sito.
+    // Provenienza: se esterna solo il dominio; se interna (v1.2.0) solo il percorso della
+    // pagina di provenienza, senza query string né hash (possono contenere UTM o dati),
+    // e non se è la pagina stessa (reload).
     try {
       if (document.referrer) {
-        var rh = new URL(document.referrer).hostname;
-        if (rh && rh !== location.hostname) dati.referrer_host = rh;
+        var ru = new URL(document.referrer);
+        if (ru.hostname !== location.hostname) { if (ru.hostname) dati.referrer_host = ru.hostname; }
+        else if (ru.pathname !== location.pathname) dati.referrer_path = ru.pathname.slice(0, 200);
       }
     } catch (e) {}
 

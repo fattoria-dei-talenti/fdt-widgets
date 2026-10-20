@@ -44,8 +44,8 @@ Per tornare indietro (rollback) si rimette il numero di versione precedente nell
 ## URL jsDelivr
 
 ```
-https://cdn.jsdelivr.net/gh/fattoria-dei-talenti/fdt-widgets@v1.1.0/dist/ias.min.js
-https://cdn.jsdelivr.net/gh/fattoria-dei-talenti/fdt-widgets@v1.1.0/dist/stile-manageriale.min.js
+https://cdn.jsdelivr.net/gh/fattoria-dei-talenti/fdt-widgets@v1.2.0/dist/ias.min.js
+https://cdn.jsdelivr.net/gh/fattoria-dei-talenti/fdt-widgets@v1.2.0/dist/stile-manageriale.min.js
 ```
 
 **Regola: mai URL su un branch** (`@main`) o senza versione. jsDelivr tiene in cache per giorni i file dei branch, quindi una modifica potrebbe non arrivare o arrivare a metà. Un tag invece non cambia mai.
@@ -74,6 +74,7 @@ Senza i reset del widget il testo lungo delle opzioni non va a capo ed esce dal 
 
 | Versione | Cosa cambia |
 |---|---|
+| v1.2.0 | Provenienza interna: se il visitatore arriva da un'altra pagina del sito, il payload contiene `referrer_path`, cioè solo il percorso della pagina di provenienza (niente query string né hash, massimo 200 caratteri, non inviato se è la pagina stessa). Con un referrer esterno resta solo `referrer_host`, come prima. Il resto del payload è invariato |
 | v1.1.0 | Le opzioni vanno a capo (reset di `white-space` contro Hello Elementor). Testi più grandi di circa 3 px. Nessun anello sul fuoco spostato dallo script (`tabindex="-1"`). Nuovo sottotitolo IAS. Payload invariato |
 | v1.0.0 | Prima versione: widget v2 mobile-first serviti via jsDelivr |
 

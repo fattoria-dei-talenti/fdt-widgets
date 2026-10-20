@@ -316,8 +316,13 @@
     try { attr = JSON.parse(sessionStorage.getItem("fdt-attr") || "{}"); } catch (e) {}
     ["utm_source", "utm_medium", "utm_campaign", "utm_content", "fdt_cid"].forEach(function (k) { if (attr[k]) p[k] = attr[k]; }); // mai valori vuoti
     try {
-      var ref = document.referrer ? new URL(document.referrer).hostname : "";
-      if (ref && ref !== location.hostname) p.referrer_host = ref;                                   // solo il dominio esterno
+      if (document.referrer) {
+        var ru = new URL(document.referrer);
+        if (ru.hostname !== location.hostname) { if (ru.hostname) p.referrer_host = ru.hostname; } // esterno: solo il dominio
+        // v1.2.0 - interno: solo il percorso della pagina di provenienza (niente query
+        // string né hash, che possono contenere UTM o dati), e non se è la pagina stessa (reload).
+        else if (ru.pathname !== location.pathname) p.referrer_path = ru.pathname.slice(0, 200);
+      }
     } catch (e) {}
     return p;
   }
