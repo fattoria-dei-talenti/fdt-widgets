@@ -1,0 +1,91 @@
+  <div id="ias-messaggio" role="alert" aria-live="polite"></div>
+
+  <!-- PASSO 1: dati anagrafici -->
+  <form class="ias-panel ias-user-form" id="ias-form-dati" novalidate>
+    <h3 class="ias-title">Inserisci i tuoi dati</h3>
+    <p class="ias-sub">Poi 30 domande, una alla volta. Il report ti arriva via email.</p>
+    <div class="ias-campi">
+      <div class="ias-campo">
+        <label for="ias-nome">Nome</label>
+        <input type="text" id="ias-nome" name="nome" autocomplete="given-name" autocapitalize="words" required maxlength="80" aria-describedby="ias-nome-err">
+        <p class="ias-errore-campo" id="ias-nome-err"></p>
+      </div>
+      <div class="ias-campo">
+        <label for="ias-cognome">Cognome</label>
+        <input type="text" id="ias-cognome" name="cognome" autocomplete="family-name" autocapitalize="words" required maxlength="80" aria-describedby="ias-cognome-err">
+        <p class="ias-errore-campo" id="ias-cognome-err"></p>
+      </div>
+      <div class="ias-campo ias-campo--pieno">
+        <label for="ias-email">Email aziendale</label>
+        <span class="ias-aiuto" id="ias-email-aiuto">Non sono accettati indirizzi Gmail, Hotmail, ecc.</span>
+        <input type="email" id="ias-email" name="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required maxlength="254" aria-describedby="ias-email-aiuto ias-email-err">
+        <p class="ias-errore-campo" id="ias-email-err"></p>
+      </div>
+      <div class="ias-campo">
+        <label for="ias-dip">Numero addetti</label>
+        <input type="number" id="ias-dip" name="num_dipendenti" inputmode="numeric" min="1" step="1" required aria-describedby="ias-dip-err">
+        <p class="ias-errore-campo" id="ias-dip-err"></p>
+      </div>
+      <div class="ias-campo">
+        <label for="ias-tel">Telefono</label>
+        <input type="tel" id="ias-tel" name="telefono" autocomplete="tel" inputmode="tel" required maxlength="30" aria-describedby="ias-tel-err">
+        <p class="ias-errore-campo" id="ias-tel-err"></p>
+      </div>
+      <div class="ias-campo ias-campo--pieno">
+        <label for="ias-azienda">Ragione sociale</label>
+        <input type="text" id="ias-azienda" name="azienda" autocomplete="organization" required maxlength="150" aria-describedby="ias-azienda-err">
+        <p class="ias-errore-campo" id="ias-azienda-err"></p>
+      </div>
+    </div>
+    <!-- Honeypot: le persone non lo vedono; se arriva compilato, n8n scarta la richiesta in silenzio -->
+    <div class="ias-hp" aria-hidden="true"><label for="ias-sito">Sito web</label><input type="text" id="ias-sito" name="sito_web" tabindex="-1" autocomplete="off"></div>
+    <p class="ias-nota-ia">Come nasce il report: i punteggi sono calcolati dalle tue risposte, i commenti sono scritti da un'intelligenza artificiale in base al punteggio ottenuto.</p>
+    <div class="ias-consenso">
+      <label><input type="checkbox" id="ias-privacy" name="consenso_privacy" value="yes" required aria-describedby="ias-privacy-err">
+        <span>Accetto l'<a href="/privacy-policy/" target="_blank" rel="noopener">informativa sulla privacy</a></span></label>
+      <p class="ias-errore-campo" id="ias-privacy-err"></p>
+    </div>
+    <button type="submit" class="ias-cta">Inizia
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4.5-5 5 5-5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </form>
+
+  <!-- PASSO 2: le 30 domande, una per schermata (generate dallo script) + ultimo passo -->
+  <form class="ias-panel ias-test-form" id="ias-form-test" novalidate hidden>
+    <div class="ias-testa">
+      <span class="ias-contatore" id="ias-contatore">Domanda 1 di 30</span>
+      <span class="ias-nome-test">Indice di Agilità Strategica</span>
+    </div>
+    <div class="ias-barra" role="progressbar" aria-label="Risposte date" aria-valuemin="0" aria-valuemax="30" aria-valuenow="0" id="ias-barra">
+      <span class="ias-barra-piena" id="ias-barra-piena"></span>
+    </div>
+
+    <div id="ias-domande"></div>
+
+    <div class="ias-finale" id="ias-finale" hidden>
+      <h3 class="ias-title" id="ias-finale-titolo" tabindex="-1">Ultimo passo</h3>
+      <div class="ias-riepilogo" style="margin-top:14px">
+        <svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="14" fill="#0c553e"/><path d="m8.5 14.5 3.6 3.5 7.4-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Hai risposto a tutte le 30 domande. Conferma la verifica di sicurezza e premi <strong>Valuta</strong>: il report ti arriva via email.</span>
+      </div>
+      <div id="ias-turnstile"></div>
+      <p class="ias-ts-stato" id="ias-ts-stato" aria-live="polite"></p>
+      <button type="submit" class="ias-cta ias-submit-test" id="ias-valuta">Valuta
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4.5-5 5 5-5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+
+    <div class="ias-nav">
+      <button type="button" class="ias-nav-btn" id="ias-indietro">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 5 7.5 10l5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Indietro</button>
+      <span class="ias-suggerimento" id="ias-suggerimento">Puoi rispondere con i tasti A–D</span>
+      <button type="button" class="ias-nav-btn" id="ias-avanti" hidden>Avanti
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </form>
+
+  <div id="ias-loading-overlay" hidden>
+    <div class="ias-attesa" role="status" aria-live="polite">
+      <div class="ias-indeterminata" aria-hidden="true"></div>
+      <p class="ias-attesa-titolo">Attendi, stiamo elaborando i risultati...</p>
+      <p class="ias-attesa-nota" id="ias-attesa-nota">Non chiudere questa pagina.</p>
+    </div>
+  </div>

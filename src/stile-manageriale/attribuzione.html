@@ -1,0 +1,24 @@
+<script>
+/* Attribuzione (F7, marketing-fdt/TRACCIAMENTO-E-IDENTITA.md): deve girare
+   PRIMA di Umami. Legge utm_* e fdt_cid dall'URL, li ricorda per la sessione
+   (sessionStorage, nessun cookie) e toglie fdt_cid dalla barra degli
+   indirizzi, perche' non deve finire nelle statistiche di Umami. */
+(function () {
+  var CHIAVI = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "fdt_cid"];
+  var memo = {};
+  try { memo = JSON.parse(sessionStorage.getItem("fdt-attr") || "{}"); } catch (e) {}
+  try {
+    var url = new URL(location.href);
+    // Si scrivono tutti e 5 insieme solo se arriva qualcosa: mai mescolare due visite.
+    if (CHIAVI.some(function (k) { return url.searchParams.get(k); })) {
+      memo = {};
+      CHIAVI.forEach(function (k) { var v = url.searchParams.get(k); if (v) memo[k] = v.slice(0, 200); });
+    }
+    if (url.searchParams.has("fdt_cid")) {
+      url.searchParams.delete("fdt_cid");
+      history.replaceState(history.state, "", url.pathname + url.search + url.hash);
+    }
+  } catch (e) {}
+  try { sessionStorage.setItem("fdt-attr", JSON.stringify(memo)); } catch (e) {}
+})();
+</script>

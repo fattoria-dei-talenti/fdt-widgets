@@ -1,0 +1,58 @@
+  <form id="user-form" class="managerial-form mt-panel" novalidate>
+    <h3 class="mt-title">Informazioni personali</h3>
+    <p class="form-description">Compila i tuoi dati per ricevere il report personalizzato</p>
+    <div class="form-grid">
+      <div class="form-group"><label for="mt-nome">Nome</label><input type="text" id="mt-nome" name="nome" maxlength="60" required autocomplete="given-name" autocapitalize="words" aria-describedby="mt-nome-err"><p class="mt-errore-campo" id="mt-nome-err"></p></div>
+      <div class="form-group"><label for="mt-cognome">Cognome</label><input type="text" id="mt-cognome" name="cognome" maxlength="60" required autocomplete="family-name" autocapitalize="words" aria-describedby="mt-cognome-err"><p class="mt-errore-campo" id="mt-cognome-err"></p></div>
+      <div class="form-group"><label for="mt-azienda">Azienda</label><input type="text" id="mt-azienda" name="azienda" maxlength="120" required autocomplete="organization" aria-describedby="mt-azienda-err"><p class="mt-errore-campo" id="mt-azienda-err"></p></div>
+      <div class="form-group"><label for="mt-ruolo">Ruolo</label><input type="text" id="mt-ruolo" name="ruolo" maxlength="80" required autocomplete="organization-title" aria-describedby="mt-ruolo-err"><p class="mt-errore-campo" id="mt-ruolo-err"></p></div>
+      <div class="form-group full-width">
+        <label for="mt-email">Email aziendale</label>
+        <input type="email" id="mt-email" name="email" maxlength="160" required placeholder="esempio@azienda.it" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" aria-describedby="mt-email-hint mt-email-err">
+        <small class="hint" id="mt-email-hint">Per favore usa la tua email aziendale</small>
+        <p class="mt-errore-campo" id="mt-email-err"></p>
+      </div>
+      <!-- Honeypot: invisibile alle persone, i bot lo compilano. -->
+      <div class="mt-hp" aria-hidden="true"><label for="mt-sito">Sito web</label><input type="text" id="mt-sito" name="sito_web" tabindex="-1" autocomplete="off"></div>
+    </div>
+    <div class="mt-indicazioni">
+      <p class="mt-indicazioni-titolo">Come rispondere per rendere il test efficace</p>
+      <ul>
+        <li>una volta iniziato il test avrai davanti un questionario composto da 20 domande</li>
+        <li>rispondi ad ogni domanda con la prima cosa che ti viene in mente</li>
+        <li>non avere paura di buttarti e di dare libero sfogo ai tuoi pensieri</li>
+        <li>non esistono risposte corrette o sbagliate: schierati!</li>
+      </ul>
+    </div>
+    <div id="mt-errore-form" class="mt-errore" role="alert" hidden></div>
+    <div class="form-footer">
+      <button type="submit" class="mt-btn mt-cta start-test-btn">Inizia il test
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11m-4.5-5 5 5-5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <p class="privacy-note">Come nasce il report: il profilo è calcolato dalle tue risposte, i commenti sono scritti da un'intelligenza artificiale in base al punteggio ottenuto.</p>
+      <p class="privacy-note">Cliccando su "Inizia il test" accetti la nostra <a href="https://www.iubenda.com/privacy-policy/87126651">Privacy Policy</a></p>
+    </div>
+  </form>
+
+  <div id="questionnaire" class="questionnaire-container mt-panel" hidden>
+    <div class="question-header">
+      <span class="question-counter" id="mt-contatore">Domanda 1 di 20</span>
+      <span class="mt-nome-test">Stile manageriale</span>
+    </div>
+    <div class="progress-container" role="progressbar" aria-label="Risposte date" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0" id="mt-barra"><span class="progress-bar" id="mt-barra-piena"></span></div>
+    <div class="mt-domanda" id="mt-domanda">
+      <div id="question-box" class="question-box"></div>
+      <div id="answers" class="answers-container" role="group"></div>
+    </div>
+    <div class="mt-nav">
+      <button type="button" class="mt-nav-btn" id="mt-indietro">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 5 7.5 10l5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Indietro</button>
+      <span class="mt-suggerimento">Puoi rispondere con i tasti A–D</span>
+      <button type="button" class="mt-nav-btn" id="mt-avanti" hidden>Avanti
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+  <!-- Schermate di attesa / esito (sostituiscono il questionario senza distruggerlo). -->
+  <div id="mt-stato" class="mt-panel" role="status" aria-live="polite" hidden></div>
+  <!-- Turnstile in modalita' "execute": si attiva solo all'invio finale (il
+       token dura 5 minuti, il test puo' durarne di piu'). Di norma invisibile. -->
+  <div id="mt-turnstile"></div>
