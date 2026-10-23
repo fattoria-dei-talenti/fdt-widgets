@@ -84,7 +84,6 @@
 #fdt-newsletter .nl-cta:focus-visible { box-shadow: 0 4px 0 var(--nl-verde-scuro), 0 0 0 3px var(--nl-verde), 0 0 0 5px #fff; }
 #fdt-newsletter .nl-cta[disabled] { cursor: progress; opacity: .75; }
 
-#fdt-newsletter .nl-nota { margin-top: 14px; font-size: 13px; color: var(--nl-tenue); text-align: center; }
 
 /* Messaggi: errore generale e successo */
 #fdt-newsletter .nl-stato:empty { display: none; }

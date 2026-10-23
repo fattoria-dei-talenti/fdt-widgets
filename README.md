@@ -51,7 +51,7 @@ Per tornare indietro (rollback) si rimette il numero di versione precedente nell
 ```
 https://cdn.jsdelivr.net/gh/fattoria-dei-talenti/fdt-widgets@v1.3.0/dist/ias.min.js
 https://cdn.jsdelivr.net/gh/fattoria-dei-talenti/fdt-widgets@v1.3.0/dist/stile-manageriale.min.js
-https://cdn.jsdelivr.net/gh/fattoria-dei-talenti/fdt-widgets@v1.3.0/dist/newsletter.min.js
+https://cdn.jsdelivr.net/gh/fattoria-dei-talenti/fdt-widgets@v1.3.1/dist/newsletter.min.js
 ```
 
 **Regola: mai URL su un branch** (`@main`) o senza versione. jsDelivr tiene in cache per giorni i file dei branch, quindi una modifica potrebbe non arrivare o arrivare a metà. Un tag invece non cambia mai.
