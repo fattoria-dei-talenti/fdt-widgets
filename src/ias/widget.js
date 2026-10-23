@@ -315,10 +315,16 @@
     var attr = {};
     try { attr = JSON.parse(sessionStorage.getItem("fdt-attr") || "{}"); } catch (e) {}
     ["utm_source", "utm_medium", "utm_campaign", "utm_content", "fdt_cid"].forEach(function (k) { if (attr[k]) p[k] = attr[k]; }); // mai valori vuoti
+    // v1.3.0 - provenienza di inizio visita, scritta dallo snippet di provenienza nel head del sito.
+    // Se c'è, il dominio esterno è quello da cui è iniziata la visita, non quello della pagina precedente.
+    var origine = {};
+    try { origine = JSON.parse(sessionStorage.getItem("fdt-origine") || "{}") || {}; } catch (e) {}
+    if (origine.referrer_host) p.referrer_host = origine.referrer_host;
     try {
       if (document.referrer) {
         var ru = new URL(document.referrer);
-        if (ru.hostname !== location.hostname) { if (ru.hostname) p.referrer_host = ru.hostname; } // esterno: solo il dominio
+        // esterno: solo il dominio; senza snippet di provenienza si ripiega sul referrer della pagina
+        if (ru.hostname !== location.hostname) { if (ru.hostname && !origine.pagina_ingresso) p.referrer_host = ru.hostname; }
         // v1.2.0 - interno: solo il percorso della pagina di provenienza (niente query
         // string né hash, che possono contenere UTM o dati), e non se è la pagina stessa (reload).
         else if (ru.pathname !== location.pathname) p.referrer_path = ru.pathname.slice(0, 200);

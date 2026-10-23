@@ -439,10 +439,16 @@
     // Provenienza: se esterna solo il dominio; se interna (v1.2.0) solo il percorso della
     // pagina di provenienza, senza query string né hash (possono contenere UTM o dati),
     // e non se è la pagina stessa (reload).
+    // v1.3.0 - provenienza di inizio visita, scritta dallo snippet di provenienza nel head del sito.
+    // Se c'è, il dominio esterno è quello da cui è iniziata la visita, non quello della pagina precedente.
+    var origine = {};
+    try { origine = JSON.parse(sessionStorage.getItem("fdt-origine") || "{}") || {}; } catch (e) {}
+    if (origine.referrer_host) dati.referrer_host = origine.referrer_host;
     try {
       if (document.referrer) {
         var ru = new URL(document.referrer);
-        if (ru.hostname !== location.hostname) { if (ru.hostname) dati.referrer_host = ru.hostname; }
+        // senza snippet di provenienza si ripiega sul referrer della pagina
+        if (ru.hostname !== location.hostname) { if (ru.hostname && !origine.pagina_ingresso) dati.referrer_host = ru.hostname; }
         else if (ru.pathname !== location.pathname) dati.referrer_path = ru.pathname.slice(0, 200);
       }
     } catch (e) {}

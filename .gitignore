@@ -1,1 +1,3 @@
 node_modules/
+# Pagine generate da test/e2e/genera-pagine.mjs: si rigenerano, non si versionano
+test/e2e/*.html

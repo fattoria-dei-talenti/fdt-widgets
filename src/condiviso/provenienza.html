@@ -1,0 +1,51 @@
+<script>
+/* Provenienza della visita (fdt-widgets). Va su TUTTE le pagine, nel head, prima di Umami.
+   Nessun cookie, nessun invio: scrive solo nella memoria della scheda (sessionStorage),
+   che si svuota alla chiusura (TRACCIAMENTO-E-IDENTITA.md par. 5.5).
+   - fdt-attr: utm_* e fdt_cid, stesso formato letto dai widget IAS e stile manageriale.
+   - fdt-origine: da dove arriva la visita e su che pagina entra, solo alla prima pagina.
+   Contratto: n8n-workspace/workflows/marketing/iscrizione-newsletter/CONTRATTO.md par. 2.
+   Nel codice niente e-commerciale, minore, maggiore: il filtro wptexturize di WordPress li altera. */
+(function () {
+  var CHIAVI = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "fdt_cid"];
+  function senzaWww(h) { return String(h || "").toLowerCase().replace(/^www\./, ""); }
+  try {
+    var url = new URL(location.href);
+
+    // 1. Attribuzione (fdt-attr): vale l'ultimo link nostro arrivato nella visita
+    var memo = {};
+    try { memo = JSON.parse(sessionStorage.getItem("fdt-attr") || "{}") || {}; } catch (e) { memo = {}; }
+    var nuovo = {};
+    CHIAVI.forEach(function (k) { var v = url.searchParams.get(k); if (v) nuovo[k] = v.slice(0, 200); });
+    if (Object.keys(nuovo).length) {
+      // Anti-perdita di fdt_cid (bug #48): se l'URL ha gli stessi UTM gia salvati ma non fdt_cid,
+      // e una ricarica dopo che lo abbiamo tolto dalla barra: il fdt_cid salvato resta.
+      if (!nuovo.fdt_cid) {
+        var stessi = CHIAVI.every(function (k) { return k === "fdt_cid" || (nuovo[k] || "") === (memo[k] || ""); });
+        if (stessi) { if (memo.fdt_cid) nuovo.fdt_cid = memo.fdt_cid; }
+      }
+      memo = nuovo;
+      sessionStorage.setItem("fdt-attr", JSON.stringify(memo));
+    }
+
+    // 2. Origine (fdt-origine): solo alla prima pagina della visita, poi non si tocca piu
+    if (!sessionStorage.getItem("fdt-origine")) {
+      var origine = { pagina_ingresso: url.pathname.slice(0, 200) };
+      try {
+        if (document.referrer) {
+          var ref = new URL(document.referrer);
+          // solo il dominio, e solo se esterno al sito (www e senza www sono lo stesso sito)
+          if (ref.hostname) { if (senzaWww(ref.hostname) !== senzaWww(location.hostname)) origine.referrer_host = ref.hostname.toLowerCase(); }
+        }
+      } catch (e) {}
+      sessionStorage.setItem("fdt-origine", JSON.stringify(origine));
+    }
+
+    // 3. fdt_cid fuori dalla barra degli indirizzi: non deve finire nei report di Umami
+    if (url.searchParams.has("fdt_cid")) {
+      url.searchParams.delete("fdt_cid");
+      history.replaceState(history.state, "", url.pathname + url.search + url.hash);
+    }
+  } catch (e) {} // qualunque errore: il sito funziona come prima, solo senza appunto
+})();
+</script>

@@ -1,0 +1,105 @@
+#fdt-newsletter {
+  /* Variante A "integrata nel verde" (approvata da Andrea il 23/10): pensata per la sezione
+     verde di /strumenti-del-contadino/. Misure lette dal sito il 22/10: testo in Roboto,
+     bottoni con raggio 3px. Roboto lo carica già la pagina: qui lo si nomina e basta. */
+  --nl-verde: #0d553e;
+  --nl-verde-scuro: #083d2c;
+  --nl-giallo: #fbbf3b;
+  --nl-giallo-scuro: #f2ad17;
+  --nl-inchiostro: #17231d;       /* testo nei campi bianchi */
+  --nl-chiaro: #e6efe9;           /* testo secondario su verde, ~9:1 */
+  --nl-tenue: #cfe0d6;            /* nota, ~7.5:1 su verde */
+  --nl-errore: #ffd9d3;           /* errori su verde, ~8:1 */
+  --nl-errore-bordo: #ff8f80;
+  box-sizing: border-box;
+  max-width: 460px;
+  margin: 0;
+  color: #fff;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+  text-align: left;
+}
+#fdt-newsletter[data-allinea="destra"] { margin-left: auto; }
+@media (max-width: 767px) { #fdt-newsletter, #fdt-newsletter[data-allinea="destra"] { max-width: none; margin: 18px 0 0; } }
+#fdt-newsletter *, #fdt-newsletter *::before, #fdt-newsletter *::after { box-sizing: inherit; }
+#fdt-newsletter [hidden] { display: none !important; }
+
+/* Reset difensivo (come IAS): Hello Elementor stilizza button/input/label/p a livello globale */
+#fdt-newsletter button, #fdt-newsletter input {
+  font: inherit; color: inherit; margin: 0; letter-spacing: normal; text-transform: none;
+  text-shadow: none; text-decoration: none; min-height: 0; width: auto; max-width: 100%;
+  white-space: normal; overflow-wrap: break-word; -webkit-user-select: auto; user-select: auto;
+  -webkit-appearance: none; appearance: none; -webkit-tap-highlight-color: transparent;
+}
+#fdt-newsletter button { background: none; border: 0; border-radius: 0; box-shadow: none; padding: 0; cursor: pointer; line-height: 1.3; }
+#fdt-newsletter p { margin: 0; padding: 0; }
+#fdt-newsletter label { display: block; line-height: 1.35; vertical-align: baseline; }
+#fdt-newsletter a { color: var(--nl-giallo); text-decoration: underline; text-underline-offset: 2px; }
+#fdt-newsletter a:hover { color: #fff; }
+
+/* Focus visibile su verde: anello verde + bianco */
+#fdt-newsletter :focus { outline: none; }
+#fdt-newsletter :focus-visible { outline: none; box-shadow: 0 0 0 2px var(--nl-verde), 0 0 0 4px #fff; }
+
+#fdt-newsletter .nl-riga { margin-bottom: 16px; }
+#fdt-newsletter .nl-riga:has(.nl-privacy) { margin-bottom: 10px; }
+#fdt-newsletter .nl-etichetta { font-weight: 600; font-size: 15px; color: #fff; margin-bottom: 6px; }
+#fdt-newsletter .nl-input {
+  display: block; width: 100%; height: 48px; padding: 0 14px;
+  font-size: 16px; color: var(--nl-inchiostro); background: #fff;
+  border: 2px solid transparent; border-radius: 3px;
+}
+#fdt-newsletter .nl-input::placeholder { color: #6b7a72; opacity: 1; }
+#fdt-newsletter .nl-input:focus, #fdt-newsletter .nl-input:focus-visible { border-color: var(--nl-giallo); box-shadow: none; }
+#fdt-newsletter .nl-input[aria-invalid="true"] { border-color: var(--nl-errore-bordo); }
+
+#fdt-newsletter .nl-errore-campo { min-height: 0; margin-top: 6px; font-size: 14px; font-weight: 500; color: var(--nl-errore); }
+#fdt-newsletter .nl-errore-campo:empty { display: none; }
+
+/* Casella privacy: area di tocco >= 44px in altezza */
+#fdt-newsletter .nl-privacy { display: flex; gap: 10px; align-items: center; min-height: 44px; font-size: 14px; color: var(--nl-chiaro); cursor: pointer; padding: 4px 0; }
+#fdt-newsletter .nl-privacy input {
+  flex: none; width: 22px; height: 22px; margin: 0; border: 2px solid #fff; border-radius: 3px; background: transparent;
+  display: inline-grid; place-content: center; cursor: pointer;
+}
+#fdt-newsletter .nl-privacy input::before { content: ""; width: 12px; height: 12px; transform: scale(0); background: var(--nl-verde); clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0, 43% 62%); }
+#fdt-newsletter .nl-privacy input:checked { background: var(--nl-giallo); border-color: var(--nl-giallo); }
+#fdt-newsletter .nl-privacy input:checked::before { transform: scale(1); }
+#fdt-newsletter .nl-privacy input[aria-invalid="true"] { border-color: var(--nl-errore-bordo); }
+#fdt-newsletter .nl-privacy span { padding-top: 1px; }
+
+/* Turnstile in modalità "solo se serve": vuoto se Cloudflare non ha dubbi */
+#fdt-newsletter .nl-turnstile:not(:empty) { margin: 0 0 12px; }
+
+/* Bottone C1, variante su fondo verde (landing/CLAUDE.md par. 8.1): giallo, testo verde, base verde scuro */
+#fdt-newsletter .nl-cta {
+  display: block; width: 100%; min-height: 52px; padding: 12px 18px; border-radius: 3px;
+  background: var(--nl-giallo); color: var(--nl-verde); font-weight: 700; font-size: 17px; letter-spacing: .01em; text-align: center;
+  box-shadow: 0 4px 0 var(--nl-verde-scuro), 0 6px 14px rgba(0, 0, 0, .18);
+  transition: transform .12s ease-out, box-shadow .12s ease-out, background-color .12s ease-out;
+}
+#fdt-newsletter .nl-cta:hover { background: var(--nl-giallo-scuro); }
+#fdt-newsletter .nl-cta:active { transform: translateY(4px); box-shadow: 0 0 0 var(--nl-verde-scuro), 0 2px 6px rgba(0, 0, 0, .2); }
+#fdt-newsletter .nl-cta:focus-visible { box-shadow: 0 4px 0 var(--nl-verde-scuro), 0 0 0 3px var(--nl-verde), 0 0 0 5px #fff; }
+#fdt-newsletter .nl-cta[disabled] { cursor: progress; opacity: .75; }
+
+#fdt-newsletter .nl-nota { margin-top: 14px; font-size: 13px; color: var(--nl-tenue); text-align: center; }
+
+/* Messaggi: errore generale e successo */
+#fdt-newsletter .nl-stato:empty { display: none; }
+#fdt-newsletter .nl-stato { margin-top: 12px; font-size: 15px; color: var(--nl-chiaro); text-align: center; }
+#fdt-newsletter .nl-stato.nl-errore { color: var(--nl-errore); font-weight: 500; }
+#fdt-newsletter .nl-stato.nl-ok {
+  display: flex; gap: 12px; align-items: flex-start; margin-top: 0; padding: 16px; text-align: left;
+  font-size: 17px; font-weight: 500; color: #fff; border: 2px solid var(--nl-giallo); border-radius: 3px;
+}
+#fdt-newsletter .nl-stato.nl-ok svg { flex: none; width: 26px; height: 26px; margin-top: 1px; }
+
+/* Honeypot: fuori schermo (non display:none, che alcuni bot riconoscono) */
+#fdt-newsletter .nl-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  #fdt-newsletter .nl-cta { transition: none; }
+  #fdt-newsletter .nl-cta:active { transform: none; }
+}
